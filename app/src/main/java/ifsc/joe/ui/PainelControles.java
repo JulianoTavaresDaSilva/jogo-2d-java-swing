@@ -61,16 +61,8 @@ public class PainelControles {
      */
     private void configurarBotoesCriacao() {
         bCriaAldeao.addActionListener(e -> criarAldeaoAleatorio());
-
-        bCriaArqueiro.addActionListener(e -> {
-            //TODO: Implementar criação de arqueiro
-            mostrarMensagemNaoImplementado("Criar Arqueiro");
-        });
-
-        bCriaCavaleiro.addActionListener(e -> {
-            //TODO: Implementar criação de cavaleiro
-            mostrarMensagemNaoImplementado("Criar Cavaleiro");
-        });
+        bCriaArqueiro.addActionListener(e -> criarArqeuiroAleatorio());
+        bCriaCavaleiro.addActionListener(e -> criarCavaleiroAleatorio());
     }
 
     /**
@@ -89,6 +81,20 @@ public class PainelControles {
         int posY = sorteio.nextInt(painelTela.getHeight() - PADDING);
 
         getTela().criarAldeao(posX, posY);
+    }
+    private void criarArqeuiroAleatorio() {
+        final int PADDING = 50;
+        int posX = sorteio.nextInt(painelTela.getWidth() - PADDING);
+        int posY = sorteio.nextInt(painelTela.getHeight() - PADDING);
+
+        getTela().criarArqueiro(posX, posY);
+    }
+    private void criarCavaleiroAleatorio() {
+        final int PADDING = 50;
+        int posX = sorteio.nextInt(painelTela.getWidth() - PADDING);
+        int posY = sorteio.nextInt(painelTela.getHeight() - PADDING);
+
+        getTela().criarCavaleiro(posX, posY);
     }
 
     /**
