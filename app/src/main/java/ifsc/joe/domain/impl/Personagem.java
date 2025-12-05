@@ -8,18 +8,18 @@ import java.util.Objects;
 
 public abstract class Personagem {
 
-    public static final String NOME_IMAGEM = "aldeao";
-
     protected int posX, posY;
     protected boolean atacando;
     protected Image icone;
 
     public Personagem(int posX, int posY) {
-        this.icone = this.carregarImagem(NOME_IMAGEM);
+        this.icone = carregarImagem(getNomeImagem());
         this.posX = posX;
         this.posY = posY;
         this.atacando = false;
     }
+
+    protected abstract String getNomeImagem();
 
     public void mover(Direcao direcao, int maxLargura, int maxAltura) {
         switch (direcao) {
@@ -29,7 +29,6 @@ public abstract class Personagem {
             case DIREITA  -> this.posX += 10;
         }
 
-        //Não deixa a imagem ser desenhada fora dos limites do JPanel pai
         this.posX = Math.min(Math.max(0, this.posX), maxLargura - this.icone.getWidth(null));
         this.posY = Math.min(Math.max(0, this.posY), maxAltura - this.icone.getHeight(null));
     }
@@ -38,9 +37,13 @@ public abstract class Personagem {
         this.atacando = !this.atacando;
     }
 
-    public Image carregarImagem(String imagem) {
+    public void desenhar(Graphics g, Component tela) {
+        g.drawImage(this.icone, this.posX, this.posY, tela);
+    }
+
+    protected Image carregarImagem(String imagem) {
         return new ImageIcon(Objects.requireNonNull(
-                getClass().getClassLoader().getResource("./"+imagem+".png")
+                getClass().getClassLoader().getResource("./" + imagem + ".png")
         )).getImage();
     }
 }
