@@ -1,14 +1,25 @@
 package ifsc.joe.domain.impl;
 
-public class Cavaleiro extends Personagem {
+import java.util.List;
 
+public class Cavaleiro extends Personagem implements Guerreiro {
 
-    public Cavaleiro(int posX, int posY, int vida, double velocidade, int ataque) {
-        super(posX, posY, 50, 2.0, 3);
+    public Cavaleiro(int posX, int posY) {
+        super(posX, posY, 75, 2.0, 15);
     }
 
     @Override
     protected String getNomeImagem() {
-        return "cavaleiro"; // cavaleiro.png
+        return "cavaleiro";
+    }
+
+    @Override
+    public void atacarArea(List<Personagem> alvos) {
+        for (Personagem alvo : alvos) {
+            double distancia = this.calcularDistancia(alvo);
+            if (distancia <= 60) {
+                alvo.sofrerDano(this.ataque);
+            }
+        }
     }
 }

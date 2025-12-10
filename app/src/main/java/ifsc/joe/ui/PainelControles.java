@@ -73,8 +73,9 @@ public class PainelControles {
     }
 
     /**
-     * Cria um aldeão em posição aleatória na tela.
+     * Cria os personagens em posições aleatórias
      */
+
     private void criarAldeaoAleatorio() {
         final int PADDING = 50;
         int posX = sorteio.nextInt(painelTela.getWidth() - PADDING);
@@ -100,6 +101,7 @@ public class PainelControles {
     /**
      * Exibe mensagem informando que a funcionalidade ainda não foi implementada.
      */
+
     private void mostrarMensagemNaoImplementado(String funcionalidade) {
         JOptionPane.showMessageDialog(
                 painelPrincipal,
@@ -112,6 +114,7 @@ public class PainelControles {
     /**
      * Obtém a referência da Tela com cast seguro.
      */
+
     private Tela getTela() {
         if (tela == null) {
             tela = (Tela) painelTela;

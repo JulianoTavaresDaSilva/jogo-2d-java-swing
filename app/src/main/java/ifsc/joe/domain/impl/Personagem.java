@@ -19,12 +19,35 @@ public abstract class Personagem {
         this.icone = carregarImagem(getNomeImagem());
         this.posX = posX;
         this.posY = posY;
-        this.atacando = false;
-        this.ataque = ataque;
         this.vida = vida;
         this.velocidade = velocidade;
+        this.ataque = ataque;
     }
 
+    public int getVida() {
+        return vida;
+    }
+    public int getAtaque() {
+        return ataque;
+    }
+    public int getPosX() {
+        return posX;
+    }
+    public int getPosY() {
+        return posY;
+    }
+
+    public void atacar() {
+        this.atacando = !this.atacando;
+    }
+
+    public void sofrerDano(int dano) {
+        this.vida = Math.max(0, this.vida - dano);
+    }
+
+    public double calcularDistancia(Personagem outro) {
+        return Math.hypot(outro.posX - this.posX, outro.posY - this.posY);
+    }
 
     protected abstract String getNomeImagem();
 
@@ -40,17 +63,15 @@ public abstract class Personagem {
         this.posY = Math.min(Math.max(0, this.posY), maxAltura - this.icone.getHeight(null));
     }
 
-    public void atacar() {
-        this.atacando = !this.atacando;
-    }
-
     public void desenhar(Graphics g, Component tela) {
         g.drawImage(this.icone, this.posX, this.posY, tela);
     }
 
     protected Image carregarImagem(String imagem) {
-        return new ImageIcon(Objects.requireNonNull(
-                getClass().getClassLoader().getResource("./" + imagem + ".png")
-        )).getImage();
+        return new ImageIcon(
+                Objects.requireNonNull(
+                        getClass().getClassLoader().getResource("./" + imagem + ".png")
+                )
+        ).getImage();
     }
 }
