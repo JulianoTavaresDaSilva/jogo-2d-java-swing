@@ -64,7 +64,19 @@ public abstract class Personagem {
     }
 
     public void desenhar(Graphics g, Component tela) {
-        g.drawImage(this.icone, this.posX, this.posY, tela);
+        if (atacando) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.drawImage(
+                    this.icone,
+                    this.posX + icone.getWidth(null),
+                    this.posY,
+                    -icone.getWidth(null),
+                    icone.getHeight(null),
+                    tela
+            );
+        } else {
+            g.drawImage(this.icone, this.posX, this.posY, tela);
+        }
     }
 
     protected Image carregarImagem(String imagem) {

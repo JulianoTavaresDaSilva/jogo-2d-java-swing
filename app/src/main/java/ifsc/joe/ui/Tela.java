@@ -60,14 +60,14 @@ public class Tela extends JPanel {
         this.aldeoes.add(a);
     }
     public void criarArqueiro(int x, int y) {
-        Arqueiro b = new Arqueiro(x, y);
-        b.desenhar(super.getGraphics(), this);
-        this.arqueiros.add(b);
+        Arqueiro arq = new Arqueiro(x, y);
+        arq.desenhar(super.getGraphics(), this);
+        this.arqueiros.add(arq);
     }
     public void criarCavaleiro(int x, int y) {
-        Cavaleiro c = new Cavaleiro(x, y);
-        c.desenhar(super.getGraphics(), this);
-        this.cavaleiros.add(c);
+        Cavaleiro cav = new Cavaleiro(x, y);
+        cav.desenhar(super.getGraphics(), this);
+        this.cavaleiros.add(cav);
     }
 
     /**
@@ -99,11 +99,22 @@ public class Tela extends JPanel {
      * Altera o estado do aldeão de atacando para não atacando e vice-versa
      */
 
-    public void atacarAldeoes() {
+    public void atacarTodos() {
         List<Personagem> personagens = getTodosOsPersonagens();
 
         for (Aldeao a : aldeoes) {
             a.atacarArea(personagens);
+            a.atacar();
+        }
+
+        for (Arqueiro arq : arqueiros) {
+            arq.atacarArea(personagens);
+            arq.atacar();
+        }
+
+        for (Cavaleiro cav : cavaleiros) {
+            cav.atacarArea(personagens);
+            cav.atacar();
         }
 
         repaint();
