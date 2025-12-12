@@ -1,4 +1,6 @@
-package ifsc.joe.domain.impl;
+package ifsc.joe.domain.api;
+
+import ifsc.joe.domain.impl.Personagem;
 
 import java.util.List;
 

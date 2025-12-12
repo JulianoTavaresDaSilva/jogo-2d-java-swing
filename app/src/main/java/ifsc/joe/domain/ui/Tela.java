@@ -1,10 +1,10 @@
-package ifsc.joe.ui;
+package ifsc.joe.domain.ui;
 
 import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.domain.impl.Arqueiro;
 import ifsc.joe.domain.impl.Cavaleiro;
 import ifsc.joe.domain.impl.Personagem;
-import ifsc.joe.enums.Direcao;
+import ifsc.joe.domain.enums.Direcao;
 
 import javax.swing.*;
 import java.awt.*;
