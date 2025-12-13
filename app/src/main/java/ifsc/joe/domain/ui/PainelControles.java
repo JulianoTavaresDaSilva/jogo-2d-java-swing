@@ -2,6 +2,7 @@ package ifsc.joe.domain.ui;
 
 import ifsc.joe.domain.enums.Direcao;
 import ifsc.joe.domain.enums.TipoPersonagem;
+import ifsc.joe.domain.enums.FiltroPersonagem;
 import ifsc.joe.config.Config;
 
 import javax.swing.*;
@@ -30,6 +31,7 @@ public class PainelControles {
     private JLabel logo;
 
     public PainelControles() {
+        configurarRadioButtons();
         configurarListeners();
     }
 
@@ -37,6 +39,23 @@ public class PainelControles {
         configurarBotoesMovimento();
         configurarBotoesCriacao();
         configurarBotaoAtaque();
+    }
+
+    private void configurarRadioButtons() {
+        ButtonGroup grupo = new ButtonGroup();
+
+        grupo.add(todosRadioButton);
+        grupo.add(aldeaoRadioButton);
+        grupo.add(arqueiroRadioButton);
+        grupo.add(cavaleiroRadioButton);
+        todosRadioButton.setSelected(true);
+    }
+
+    private FiltroPersonagem getFiltroSelecionado() {
+        if (aldeaoRadioButton.isSelected()) return FiltroPersonagem.ALDEAO;
+        if (arqueiroRadioButton.isSelected()) return FiltroPersonagem.ARQUEIRO;
+        if (cavaleiroRadioButton.isSelected()) return FiltroPersonagem.CAVALEIRO;
+        return FiltroPersonagem.TODOS;
     }
 
     private void configurarBotoesMovimento() {
@@ -53,11 +72,13 @@ public class PainelControles {
     }
 
     private void configurarBotaoAtaque() {
-        atacarButton.addActionListener(e -> getTela().atacarTodos());
+        atacarButton.addActionListener(e ->
+                getTela().atacarFiltrados(getFiltroSelecionado())
+        );
     }
 
     private void mover(Direcao direcao) {
-        getTela().movimentarTodos(direcao);
+        getTela().movimentarFiltrados(direcao, getFiltroSelecionado());
     }
 
     private void criarPersonagem(TipoPersonagem tipo) {

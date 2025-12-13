@@ -5,6 +5,7 @@ import ifsc.joe.domain.enums.Direcao;
 import ifsc.joe.domain.impl.Personagem;
 import ifsc.joe.domain.api.Guerreiro;
 import ifsc.joe.domain.enums.TipoPersonagem;
+import ifsc.joe.domain.enums.FiltroPersonagem;
 import ifsc.joe.domain.impl.*;
 
 import javax.swing.*;
@@ -66,7 +67,6 @@ public class Tela extends JPanel {
         }
     }
 
-
     private void desenharRangeAtaque(Graphics2D g2, Personagem p) {
         g2.setColor(new Color(255, 0, 0, 80));
 
@@ -87,24 +87,34 @@ public class Tela extends JPanel {
         personagens.add(p);
     }
 
-    public void movimentarTodos(Direcao direcao) {
-        for (Personagem p : personagens) {
-            p.mover(direcao, getWidth(), getHeight());
-        }
+    private boolean filtroAplica(Personagem p, FiltroPersonagem filtro) {
+        return switch (filtro) {
+            case TODOS -> true;
+            case ALDEAO -> p instanceof Aldeao;
+            case ARQUEIRO -> p instanceof Arqueiro;
+            case CAVALEIRO -> p instanceof Cavaleiro;
+        };
     }
 
-    public void atacarTodos() {
+    public void movimentarFiltrados(Direcao direcao, FiltroPersonagem filtro) {
         for (Personagem p : personagens) {
-
-            p.iniciarAtaque();
-            if (p instanceof Guerreiro guerreiro) {
-                guerreiro.atacarArea(personagens);
+            if (filtroAplica(p, filtro)) {
+                p.mover(direcao, getWidth(), getHeight());
             }
         }
+        repaint();
+    }
 
+    public void atacarFiltrados(FiltroPersonagem filtro) {
+        for (Personagem p : personagens) {
+            if (filtroAplica(p, filtro) && p instanceof Guerreiro g) {
+                g.atacarArea(personagens);
+            }
+        }
         removerMortos();
         repaint();
     }
+
 
     private void removerMortos() {
 
